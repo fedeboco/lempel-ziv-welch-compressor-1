@@ -57,9 +57,9 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 //Descomprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
 bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
 {  
-    int ubic = 0, aux_u;
+    //int ubic = 0;
+	int aux_u;
 	bool Pr_carac_flag = false;     
-    
     char indice_actual_aux;
     int indice_anterior=0, indice_actual = 0;
         
@@ -94,14 +94,12 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
             indice_actual = indice_actual*10 + aux;
         }         
             
-        //if(diccionario.buscar_indice(indice_actual, &ubic) == true)
         //USo la posición de indice_actual para saber si esta o no en el diccionario
         if(indice_actual <= dic.obtener_ult_())
 		{
-			
-        	ubic = indice_actual;                                    
-            dic.imprimir_indice(ubic, oss);
-            aux_u = dic.obtener_indice(ubic);            
+		   	//ubic = indice_actual;                                    
+            dic.imprimir_indice(indice_actual, oss);
+            aux_u = dic.obtener_indice(indice_actual);            
 			dic.agregar_secuencia(indice_anterior,aux_u);
 		}
         else

@@ -13,7 +13,7 @@ valgrind:
 	valgrind ./tp0.exe -c -i "./tests/entrada1.txt" -o "./tests/salida1.txt"
 
 test:
-	for numero in 1 2 3 4 5 6 ; do \
+	for numero in 1 2 3 4 5 6 7; do \
 	echo \ ;\
 	echo TEST NÚMERO $$numero ----------------------;\
 	./tp0.exe -c -i "./tests/entrada$${numero}.txt" -o "./tests/salida$${numero}.txt" ;\
