@@ -26,7 +26,6 @@ public:
     char obtener_S(const int) const;
     void resetear_diccionario();
     int obtener_indice(const int &);
-    //bool buscar_indice(const int &, int *);
     void imprimir_indice (const int &, ostream *);
     bool cargar_ASCII();
 

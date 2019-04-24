@@ -81,7 +81,6 @@ int diccionario::agregar_secuencia(const int & P, const char & S)
     if( ult_ >= size - 1){
         cout << MSJ_DIC_LLENO << endl;
         this -> resetear_diccionario();
-        //ult_ = 255;
     }
     this -> asignar_secuencia(ult_ + 1, P, S);
     ult_++;
@@ -114,30 +113,6 @@ int diccionario::obtener_indice(const int & ubic)
     }
         
 }
-
-/*
-bool diccionario::buscar_indice(const int & S, int * ubic)
-{
-    int size = *size_;
-    if (S < 256)
-    {
-        for(*ubic = 0; *ubic <= size;(*ubic)++)
-        {
-            if(this -> obtener_S(*ubic) == S)
-                return true;
-        }
-    }
-    else
-    {
-        for(*ubic = 255; *ubic <= size;(*ubic)++)
-        {
-            if(this -> obtener_P(*ubic) == S)
-                return true;
-        }
-    }
-    
-    return false;
-}*/
 
 //Imprime cadena de caracteres según indice.
 void diccionario::imprimir_indice(const int & ubic, ostream * oss)
