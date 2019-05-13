@@ -15,14 +15,14 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 
 	dic.resetear_diccionario();
 	//Para primeros 2 carácteres. El primero lo va a encontrar. El segundo no.
-	if( (S = (*iss).get()) != EOF ){
+	if( (S = (*iss).get())==S && (*iss).eof() == false ){
 	
 		//Si viene de entrada estándar y recibo \n corto.
 		if( S == '\n' && iss == &cin )
 			return false;
 
 		P = dic.buscar_secuencia(-1, S);
-		if( (S = (*iss).get()) != EOF ){
+		if( (S = (*iss).get())==S && (*iss).eof() == false ){
 
 			//Si viene de entrada estándar y recibo \n corto.
 			if( S == '\n' && iss == &cin )
@@ -52,7 +52,7 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 	}
 
 	//Desde el tercer caracter hasta el final.	
-	while( (S = (*iss).get()) != EOF )
+	while( (S = (*iss).get())==S  && (*iss).eof() == false )
 	{	
 		//Si viene de entrada estándar y recibo \n corto.
 		if( S == '\n' && iss == &cin )
