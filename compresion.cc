@@ -5,7 +5,7 @@ using namespace std;
 
 #define MSJ_ERROR_FOPEN "No se pudo abrir el archivo."
 #define MSJ_ARCHIVO_VACIO "El archivo a tratar está vacío."
-
+#define GAP_LETRAS_ASCII 48
 //Comprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
 bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 {
@@ -101,7 +101,7 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
 
 		Pr_carac_flag = true;
 		int aux;
-    	aux = int(indice_actual_aux) - 48; //48 por casteo (0 = 48 en la tabla ascii).
+    	aux = int(indice_actual_aux) - GAP_LETRAS_ASCII; //48 por casteo (0 = 48 en la tabla ascii).
     	indice_actual = indice_actual*10 + aux; //ejemplo: 432 = 10*( 10*(4) + 3 ) + 2; 
     }
 	*oss << dic.obtener_S(indice_actual);
@@ -118,7 +118,7 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
         while( (indice_actual_aux=(*iss).get()) != ',' && (*iss).eof() == false && !(indice_actual_aux == '\n' && iss == &cin ))
         {   
 			int aux;                
-            aux = int(indice_actual_aux) - 48;
+            aux = int(indice_actual_aux) - GAP_LETRAS_ASCII;
             indice_actual = indice_actual*10 + aux;
         }         
             
