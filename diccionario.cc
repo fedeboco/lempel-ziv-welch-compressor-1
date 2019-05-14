@@ -1,10 +1,14 @@
 #include <iostream>
 #include "diccionario.h"
+#include "tipos_datos.h"
+#include "funciones_impresion.h"
 
+/*
 #define CANT_ASCII 255
 #define MSJ_ERROR_SIZE_DICC "El tamaño del diccionario es muy chico, se usará el default = 255"
 #define MSJ_ERROR_OBT_SEC "No existen secuencias con índice negativo o índice mayor al último elemento."
 #define MSJ_DIC_LLENO "Se lleno el diccionario, se procede a resetearlo"
+*/
 
 using namespace std;
 
@@ -13,7 +17,7 @@ diccionario::diccionario(const int & size)
     int size_aux = size; 
     if (size < CANT_ASCII)
     {
-      cout << MSJ_ERROR_SIZE_DICC << endl;
+      imprimir_error(ERROR_SIZE_DIC);
       size_aux = CANT_ASCII;  
     }  
     dic_ = new arreglo(size_aux);
@@ -30,7 +34,7 @@ diccionario::~diccionario()
 secuencia & diccionario::obtener_secuencia(const int i)
 {
     if( i < 0 || i > ult_ )
-        cout << MSJ_ERROR_OBT_SEC << endl;
+        imprimir_error(ERROR_OBTENER_SEC);    //Debería cortar??
     return dic_ -> obtener_dato(i);
 }
 
@@ -76,7 +80,7 @@ int diccionario::agregar_secuencia(const int & P, const char & S)
 {
     //int size = size_;
     if( ult_ >= size_ - 1){
-        cout << MSJ_DIC_LLENO << endl;
+        imprimir_mensaje(MSJ_ESTADO_DIC_LLENO);
         this -> resetear_diccionario();
     }
     this -> asignar_secuencia(ult_ + 1, P, S);

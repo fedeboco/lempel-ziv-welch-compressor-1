@@ -1,13 +1,18 @@
 #include <iostream>
 #include "compresion.h"
+#include "tipos_datos.h"
+#include "funciones_impresion.h"
 
 using namespace std;
 
+/*
 #define MSJ_ERROR_FOPEN "No se pudo abrir el archivo."
 #define MSJ_ARCHIVO_VACIO "El archivo a tratar está vacío."
 #define GAP_LETRAS_ASCII 48
+*/
+
 //Comprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
-bool comprimir(diccionario & dic, istream * iss, ostream *oss)
+estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 {
     char S;
 	int P = -1;
@@ -19,7 +24,7 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 	
 		//Si viene de entrada estándar y recibo \n corto.
 		if( S == '\n' && iss == &cin )
-			return false;
+			return OK;
 
 		P = dic.buscar_secuencia(-1, S);
 		if( (S = (*iss).get())==S && (*iss).eof() == false ){
@@ -28,7 +33,7 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 			if( S == '\n' && iss == &cin )
 			{
 				*oss << P << ',' << (int)'\n' << endl;
-				return false;
+				return OK;
 			}
 
 			dic.agregar_secuencia(P, S);
@@ -40,15 +45,15 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 		else
 		{
 			*oss << P; 
-			return false;
+			return OK;
 		}
 		
 	}
 	//Archivo de entrada vacío.
 	else
 	{
-		cout << MSJ_ARCHIVO_VACIO << endl;
-		return false;
+		imprimir_mensaje(MSJ_ESTADO_ARCHIVO_VACIO);
+		return OK;
 	}
 
 	//Desde el tercer caracter hasta el final.	
@@ -58,7 +63,7 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 		if( S == '\n' && iss == &cin )
 		{
 			*oss << P << ',' << (int)'\n' << endl;
-			return false;
+			return OK;
 		}
 
 		indice = dic.buscar_secuencia(P, S);
@@ -71,11 +76,11 @@ bool comprimir(diccionario & dic, istream * iss, ostream *oss)
 		P = indice;
 	}
 	*oss << P;
-	return false;
+	return OK;
 }
 
 //Descomprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
-bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
+estado_t descomprimir(diccionario & dic, istream * iss, ostream *oss)
 {  
     //int ubic = 0;
 	int aux_u;
@@ -90,8 +95,8 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
 		{
 			if( Pr_carac_flag == false )
 			{
-				cout << MSJ_ARCHIVO_VACIO << endl;
-				return false;
+				imprimir_mensaje(MSJ_ESTADO_ARCHIVO_VACIO);
+				return OK;
 			}
 			else
 			{
@@ -107,10 +112,10 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
 	*oss << dic.obtener_S(indice_actual);
 	//Si viene de entrada estándar y recibo \n corto.
 	if(indice_actual_aux == '\n'  && iss == &cin)
-		return false;
+		return OK;
 
 	//Del segundo caracter hasta el final.
-    while ( (*iss).eof() == false )        
+    while ( (*iss).eof() == false )        //Agrego el (*iss).fail() == false para salir si el flag bad o fail s eactivam a, final pregunoto si salí por eso.
     {
         indice_anterior = indice_actual;
         indice_actual=0;
@@ -139,9 +144,7 @@ bool descomprimir(diccionario & dic, istream * iss, ostream *oss)
 
 		//Si viene de entrada estándar y recibo \n corto.
 		if( indice_actual_aux == '\n' && iss == &cin )
-			return false;
+			return OK;
     }
-
-
-    return false;
+    return OK;
 }
