@@ -1,0 +1,9 @@
+n=0; while :; do
+      n="`expr $n + 1`"; 
+      head -c 100 </dev/urandom >/tmp/test.$n.u;
+      ./tp0.exe -i /tmp/test.$n.u -o /tmp/test.$n.d || break;
+      ./tp0.exe -p decompress -i /tmp/test.$n.d  -o /tmp/test.$n.2.u || break;
+      diff -q /tmp/test.$n.u /tmp/test.$n.2.u || break;
+      rm -f /tmp/test.$n.*;
+      echo Ok: $n;
+done; echo Error: $n

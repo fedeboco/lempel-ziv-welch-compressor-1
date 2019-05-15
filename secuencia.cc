@@ -5,65 +5,58 @@ using namespace std;
 
 secuencia::secuencia()
 {
-    P_ = new int;
-    S_ = new char;
+   P_ = 0;
+   S_ = 0;
 }
 
 secuencia::secuencia(const int & P, const char & S)
 {
-    P_ = new int;
-    S_ = new char;
-
-    *P_ = P;
-    *S_ = S;
-
+    P_ = P;
+    S_ = S;
 }
 
 //Constructor copia de secuencias.
 void secuencia::operator=(const secuencia & sec)
 {
-    P_ = new int;
-    S_ = new char;
-
-    *P_ = *sec.P_;
-    *S_ = *sec.S_;
+    P_ = sec.P_;
+    S_ = sec.S_;
 }
 
-secuencia::~secuencia()
+/*secuencia::~secuencia()
 {
     if( P_ )
         delete P_;
     if( S_ )
         delete S_;
-}
+}*/
 
 //Asigna sólo el prefijo a la secuencia.
 void secuencia::asignarP(const int & P)
 {
-    *P_ = P;
+    P_ = P;
 }
 
 //Asigna sólo el sufijo a la secuencia.
 void secuencia::asignarS(const char & S)
 {
-    *S_ = S;
+    S_ = S;
 }
 
 //Asigna prefijo y sufijo a la secuencia.
 void secuencia::asignarPS(const int & P, const char & S)
 {
-    *P_ = P;
-    *S_ = S;
+    P_ = P;
+    S_ = S;
 }
 
 //Extrae el prefijo de la secuencia.
 int secuencia::obtenerP()
 {
-    return *P_;
+    return P_;
 }
 
 //Extrae el sufijo de la secuencia.
 char secuencia::obtenerS()
 {
-    return *S_;
+    return S_;
 }

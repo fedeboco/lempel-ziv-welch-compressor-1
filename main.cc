@@ -13,7 +13,10 @@
 #include <iomanip>
 #include <iostream>
 #include <cstdlib>
+#include "tipos_datos.h"
+#include "funciones_impresion.h"
 
+/*
 #define MAX_VECTOR 65536
 
 #define MSJ_ERROR_COMP "Compresión fallida."
@@ -24,7 +27,7 @@
 #define MSJ_DEFAULT_OP "Operación no especificada. Comprimiendo por defecto."
 #define MSJ_ERROR_OPENING "No se puede abrir "
 #define MSJ_ERROR_OPERATION "Invocación inválida."
-
+*/
 using namespace std;
 
 static void opt_input(string const &);
@@ -149,18 +152,18 @@ int main(int argc, char * const argv[])
 {
 	cmdline cmdl(options);	// Objeto tipo option_t (struct) declarado globalmente.
 	cmdl.parse(argc, argv); // Metodo de parseo de la clase cmdline.
-
+	estado_t estado;
 	//Descompresión.
 	if( descomprimir_archivo && !comprimir_archivo )
 	{
 		diccionario dic(MAX_VECTOR);
 		dic.cargar_ASCII();
-		if( descomprimir(dic, iss, oss) )
+		if( (estado=descomprimir(dic, iss, oss)) != OK )
 		{
-			cout << MSJ_ERROR_DESCOMP << endl;
+			imprimir_error(estado);
 			return 1;
 		}
-		cout << MSJ_OK_DESCOMP << endl;
+		imprimir_mensaje(MSJ_ESTADO_OK_DESCOMP);
 	}
 
 	//Compresión.
@@ -168,17 +171,18 @@ int main(int argc, char * const argv[])
 	{
 		diccionario dic(MAX_VECTOR);
 		dic.cargar_ASCII();
-		if( comprimir(dic, iss, oss) )
+		if( (estado=comprimir(dic, iss, oss))!= OK )
 		{
-			cout << MSJ_ERROR_COMP << endl;
+			imprimir_error(estado);
 			return 1;
 		}
-		cout << MSJ_OK_COMP << endl;
+		imprimir_mensaje(MSJ_ESTADO_OK_COMP);
 	}
 
 	//Compresión y descompresión indefinido.
 	else if( descomprimir_archivo && comprimir_archivo )
 	{
+		imprimir_error(ERROR_COMP_DESCOP_INDEF);
 		return 1;
 	}
 
@@ -188,12 +192,12 @@ int main(int argc, char * const argv[])
 		cout << MSJ_DEFAULT_OP << endl;
 		diccionario dic(MAX_VECTOR);
 		dic.cargar_ASCII();
-		if( comprimir(dic, iss, oss) )
+		if( (estado=comprimir(dic, iss, oss))!= OK )
 		{
 			cout << MSJ_ERROR_COMP << endl;
 			return 1;
 		}
-		cout << MSJ_OK_COMP << endl;
+		imprimir_mensaje(MSJ_ESTADO_OK_COMP);
 	}
 
 	ifs.close();

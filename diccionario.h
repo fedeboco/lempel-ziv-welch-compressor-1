@@ -10,7 +10,7 @@ class diccionario
 {
 private:
     arreglo * dic_;
-    int * size_;                               
+    int size_;                               
     int ult_;
 
 public:
