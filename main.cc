@@ -16,18 +16,6 @@
 #include "tipos_datos.h"
 #include "funciones_impresion.h"
 
-/*
-#define MAX_VECTOR 65536
-
-#define MSJ_ERROR_COMP "Compresión fallida."
-#define MSJ_OK_COMP "Compresión correcta."
-#define MSJ_ERROR_DESCOMP "Descompresión fallida."
-#define MSJ_OK_DESCOMP "Descompresión correcta." 
-#define MSJ_STD_INPUT "Entrada estándar."
-#define MSJ_DEFAULT_OP "Operación no especificada. Comprimiendo por defecto."
-#define MSJ_ERROR_OPENING "No se puede abrir "
-#define MSJ_ERROR_OPERATION "Invocación inválida."
-*/
 using namespace std;
 
 static void opt_input(string const &);
@@ -194,7 +182,7 @@ int main(int argc, char * const argv[])
 		dic.cargar_ASCII();
 		if( (estado=comprimir(dic, iss, oss))!= OK )
 		{
-			cout << MSJ_ERROR_COMP << endl;
+			imprimir_error(estado);
 			return 1;
 		}
 		imprimir_mensaje(MSJ_ESTADO_OK_COMP);

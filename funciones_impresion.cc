@@ -21,7 +21,9 @@ estado_t imprimir_error(estado_t estado)
                     MSJ_ERROR_OPERATION,
                     MSJ_ERROR_FOPEN,
                     MSJ_ERROR_DESC_COMP_INDEF,
-                    MSJ_ERROR_LECTURA_ARCHIVO
+                    MSJ_ERROR_LECTURA_ARCHIVO,
+                    MSJ_ERROR_ESCRITURA,
+                    MSJ_ERROR_ASIGNAR_SEC
     };
 
     cout << error[estado] << endl;

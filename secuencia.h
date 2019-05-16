@@ -13,7 +13,6 @@ private:
 public:
     secuencia();
     secuencia(const int &, const char &);
-    //~secuencia();
 
     void operator=(const secuencia &);
     void asignarP(const int &);

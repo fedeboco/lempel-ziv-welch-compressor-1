@@ -1,7 +1,6 @@
 #ifndef TIPOS_DE_DATOS__H
 #define TIPOS_DE_DATOS__H
 
-
 //********************************************** Diccionario.cc *********************************************
 #define CANT_ASCII 255
 #define MSJ_ERROR_SIZE_DICC "El tamaño del diccionario es muy chico, se usará el default = 255"
@@ -29,10 +28,11 @@
 #define MSJ_DEFAULT_OP "Operación no especificada. Comprimiendo por defecto."
 #define MSJ_ERROR_OPENING "No se puede abrir "
 #define MSJ_ERROR_OPERATION "Invocación inválida."
-
+#define MSJ_ERROR_ESCRITURA "Error escribiendo el archivo."
 #define MSJ_ERROR_PUNTERO_NULO "Se produjo un error inesperado."
 #define MSJ_ERROR_DESC_COMP_INDEF "Descompresión y Compresión idefinido"
 #define MSJ_ERROR_LECTURA_ARCHIVO "Se produjo un error al querer leer el archivo."
+#define MSJ_ERROR_ASIGNAR_SEC "No se pudo asignar la secuencia al diccionario."
 typedef enum{
                 ERROR_PUNTERO_NULO = 0,
                 ERROR_SIZE_CONSTRUCTOR = 1,
@@ -47,7 +47,9 @@ typedef enum{
                 ERROR_FOPEN = 10,
                 ERROR_COMP_DESCOP_INDEF =11,
                 ERROR_LECTURA_ARCHIVO = 12,
-                OK  = 13
+                ERROR_ESCRITURA = 13,
+                ERROR_ASIGNAR_SEC = 14,
+                OK  = 15
 }estado_t;           
 
 typedef enum{

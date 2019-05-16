@@ -10,7 +10,7 @@ clean:
 	$(RM) -vf *.o *.exe *.t *.out *.err
 
 valgrind: 
-	for numero in 0 1 2 3 4 5 6 7 8 9; do \
+	for numero in 1 2 3 4 5 6 7 8 9; do \
 	echo \ ;\
 	echo TEST NÚMERO $$numero ----------------------;\
 	valgrind ./tp0.exe -p compress -i "./tests/entrada$${numero}.txt" -o "./tests/salida$${numero}.txt" ;\

@@ -5,12 +5,6 @@
 
 using namespace std;
 
-/*
-#define MSJ_ERROR_FOPEN "No se pudo abrir el archivo."
-#define MSJ_ARCHIVO_VACIO "El archivo a tratar está vacío."
-#define GAP_LETRAS_ASCII 48
-*/
-
 //Comprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
 estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 {
@@ -36,11 +30,14 @@ estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 			if( S == '\n' && iss == &cin )
 			{
 				*oss << P << ',' << (int)'\n' << endl;
+				if((*oss).fail())
+					return ERROR_ESCRITURA;
 				return OK;
 			}
-
 			dic.agregar_secuencia(P, S);
-			*oss << P << ","; 
+			*oss << P << ",";
+			if((*oss).fail())
+				return ERROR_ESCRITURA;
 			P = dic.buscar_secuencia(-1,S);
 
 		}
@@ -49,7 +46,9 @@ estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 		//Si el próximo caracter está vacío lo imprime y sale de la función.
 		else
 		{
-			*oss << P; 
+			*oss << P;
+			if((*oss).fail())
+				return ERROR_ESCRITURA;
 			return OK;
 		}
 		
@@ -70,6 +69,8 @@ estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 		if( S == '\n' && iss == &cin )
 		{
 			*oss << P << ',' << (int)'\n' << endl;
+			if((*oss).fail())
+				return ERROR_ESCRITURA;
 			return OK;
 		}
 
@@ -78,6 +79,8 @@ estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 		{
 			dic.agregar_secuencia(P, S);
 			*oss << P << ",";
+			if((*oss).fail())
+				return ERROR_ESCRITURA;
 			indice = dic.buscar_secuencia(-1,S);
 		}
 		P = indice;
@@ -86,13 +89,14 @@ estado_t comprimir(diccionario & dic, istream * iss, ostream *oss)
 	if(estado_f == true)
 		return ERROR_LECTURA_ARCHIVO;
 	*oss << P;
+	if((*oss).fail())
+		return ERROR_ESCRITURA;
 	return OK;
 }
 
 //Descomprime un archivo en modo texto de iss en otro archivo oss según Lempel-ziv-Welch.
 estado_t descomprimir(diccionario & dic, istream * iss, ostream *oss)
 {  
-    //int ubic = 0;
 	int aux_u;
 	bool Pr_carac_flag = false;     
     char indice_actual_aux;
@@ -125,6 +129,8 @@ estado_t descomprimir(diccionario & dic, istream * iss, ostream *oss)
 	//Compruebo si el while salió por un fallo de lectura.
 	
 	*oss << dic.obtener_S(indice_actual);
+	if((*oss).fail())
+		return ERROR_ESCRITURA;
 	//Si viene de entrada estándar y recibo \n corto.
 	if(indice_actual_aux == '\n'  && iss == &cin)
 		return OK;
@@ -148,7 +154,8 @@ estado_t descomprimir(diccionario & dic, istream * iss, ostream *oss)
         if(indice_actual <= dic.obtener_ult_())
 		{
 		   	//ubic = indice_actual;                                    
-            dic.imprimir_indice(indice_actual, oss);
+            if(dic.imprimir_indice(indice_actual, oss) != OK)
+				return ERROR_ESCRITURA;
             aux_u = dic.obtener_indice(indice_actual);            
 			dic.agregar_secuencia(indice_anterior,aux_u);
 		}
@@ -156,7 +163,8 @@ estado_t descomprimir(diccionario & dic, istream * iss, ostream *oss)
         {
             aux_u = dic.obtener_indice(indice_anterior);  
 			dic.agregar_secuencia(indice_anterior,aux_u);
-            dic.imprimir_indice(dic.obtener_ult_(), oss);
+            if(dic.imprimir_indice(dic.obtener_ult_(), oss) != OK)
+				return ERROR_ESCRITURA;
         }
 
 		//Si viene de entrada estándar y recibo \n corto.

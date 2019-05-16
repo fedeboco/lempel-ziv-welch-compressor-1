@@ -22,14 +22,6 @@ void secuencia::operator=(const secuencia & sec)
     S_ = sec.S_;
 }
 
-/*secuencia::~secuencia()
-{
-    if( P_ )
-        delete P_;
-    if( S_ )
-        delete S_;
-}*/
-
 //Asigna sólo el prefijo a la secuencia.
 void secuencia::asignarP(const int & P)
 {

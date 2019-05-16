@@ -6,12 +6,6 @@
 
 using namespace std;
 
-/*
-#define MSJ_ERROR_SIZE_1 "Error: acceso inválido a posición "
-#define MSJ_ERROR_SIZE_2 " en arreglo de tamaño " 
-#define MSJ_ERROR_SIZE_CONSTRUCTOR "Tamaño inválido. No se pudo crear el arreglo."
-*/
-
 arreglo::arreglo(const int & size)
 {
     if( size > 0 )
