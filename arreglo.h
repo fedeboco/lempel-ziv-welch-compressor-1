@@ -9,7 +9,7 @@ class arreglo
 {
 private:
     secuencia * dato_;
-    int * size_;
+    int size_;
     int ult_;
 
 public:

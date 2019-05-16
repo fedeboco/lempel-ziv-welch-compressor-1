@@ -7,13 +7,12 @@ using namespace std;
 class secuencia
 {
 private:
-    int * P_; //prefijo
-    char * S_; //sufijo
+    int P_; //prefijo
+    char S_; //sufijo
 
 public:
     secuencia();
     secuencia(const int &, const char &);
-    ~secuencia();
 
     void operator=(const secuencia &);
     void asignarP(const int &);

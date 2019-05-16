@@ -3,14 +3,14 @@ CXXFLAGS = -I. $(CXXARGS)
 
 all: tp0.exe
 
-tp0.exe: main.cc cmdline.cc diccionario.cc arreglo.cc secuencia.cc compresion.cc compresion.h  diccionario.h arreglo.h secuencia.h cmdline.h 
-	$(CXX) $(CXXFLAGS) -o tp0.exe cmdline.cc main.cc diccionario.cc arreglo.cc secuencia.cc compresion.cc 
+tp0.exe: main.cc cmdline.cc diccionario.cc arreglo.cc secuencia.cc compresion.cc funciones_impresion.cc funciones_impresion.h compresion.h  diccionario.h arreglo.h secuencia.h cmdline.h tipos_datos.h
+	$(CXX) $(CXXFLAGS) -o tp0.exe cmdline.cc main.cc diccionario.cc arreglo.cc secuencia.cc compresion.cc funciones_impresion.cc
 
 clean:
 	$(RM) -vf *.o *.exe *.t *.out *.err
 
 valgrind: 
-	for numero in 0 1 2 3 4 5 6 7 8 9; do \
+	for numero in 1 2 3 4 5 6 7 8 9; do \
 	echo \ ;\
 	echo TEST NÚMERO $$numero ----------------------;\
 	valgrind ./tp0.exe -p compress -i "./tests/entrada$${numero}.txt" -o "./tests/salida$${numero}.txt" ;\
